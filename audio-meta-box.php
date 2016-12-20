@@ -147,13 +147,17 @@ class Audio_Meta_Box {
 	 */
 	public function add_meta_box() {
 
-		add_meta_box(
-			$this->name,
-			$this->title,
-			array( $this, 'display_meta_box' ),
-			'page',
-			'side'
-		);
+		foreach ( $this->post_types as $post_type ) {
+
+			add_meta_box(
+				$this->name,
+				$this->title,
+				array( $this, 'display_meta_box' ),
+				$post_type,
+				'side'
+			);
+
+		}
 
 	}
 
@@ -270,5 +274,6 @@ function audio_meta_box() {
 		'remove_custom_image' => __( 'Remove audio file', 'audio-meta-box' ),
 		'post_types'          => get_post_types( array( 'public' => true ) ),
 	);
+
 	new Audio_Meta_Box( $args );
 }
